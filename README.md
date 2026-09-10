@@ -4,22 +4,24 @@ This repository contains **Agent Skills** for integrating Android applications w
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [About These Skills](#-about-these-skills)
-- [Prerequisites](#-prerequisites)
-- [Setup Instructions](#-setup-instructions)
-- [Quick Reference](#-quick-reference)
-- [Supported Workflows](#-supported-workflows)
-- [Quick Start](#-quick-start)
-- [Usage Examples](#-usage-examples)
-- [Environment Configuration](#️-environment-configuration)
-- [Troubleshooting](#-troubleshooting)
-- [Additional Resources](#-additional-resources)
+- [About These Skills](#about-these-skills)
+- [Prerequisites](#prerequisites)
+- [Setup Instructions](#setup-instructions)
+- [Quick Reference](#quick-reference)
+- [Supported Workflows](#supported-workflows)
+- [Quick Start](#quick-start)
+- [Usage Examples](#usage-examples)
+- [Environment Configuration](#environment-configuration)
+- [Troubleshooting](#troubleshooting)
+- [Additional Resources](#additional-resources)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## 🎯 About These Skills
+## About These Skills
 
 This skill collection provides AI-powered assistance for:
 
@@ -34,7 +36,7 @@ This skill collection provides AI-powered assistance for:
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 Before using these skills, ensure you have:
 
@@ -53,7 +55,7 @@ Before using these skills, ensure you have:
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Quick Setup (One Command)
 
@@ -61,10 +63,10 @@ Install directly with a single command from your project root:
 
 ```bash
 # Using curl
-curl -fsSL https://raw.githubusercontent.com/PhonePe/phonepe-offline-skills/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/PhonePe/phonepe-edc-integration-skills/main/setup.sh | bash
 
 # Or using wget
-wget -qO- https://raw.githubusercontent.com/PhonePe/phonepe-offline-skills/main/setup.sh | bash
+wget -qO- https://raw.githubusercontent.com/PhonePe/phonepe-edc-integration-skills/main/setup.sh | bash
 ```
 
 The script will:
@@ -77,8 +79,8 @@ The script will:
 ### Alternative: Clone and Run
 
 ```bash
-git clone https://github.com/PhonePe/phonepe-offline-skills.git
-cd phonepe-offline-skills
+git clone https://github.com/PhonePe/phonepe-edc-integration-skills.git
+cd phonepe-edc-integration-skills
 ./setup.sh
 ```
 
@@ -87,17 +89,34 @@ cd phonepe-offline-skills
 <details>
 <summary>Click to expand manual setup instructions</summary>
 
-```bash
-# From the cloned repository, copy skills into your Android project
-mkdir -p /path/to/your/project/.github/skills
-cp -r phonepe-offline-skill /path/to/your/project/.github/skills/
+#### Step 1: Clone or Use This Repository
 
-# Navigate to your project and start Copilot CLI
-cd /path/to/your/project
+If you're starting a new project:
+
+```bash
+# Clone this repository
+git clone https://github.com/PhonePe/phonepe-edc-integration-skills.git
+cd phonepe-edc-integration-skills
+
+# Start GitHub Copilot CLI in this directory
 copilot
 ```
 
-Verify the skill is detected:
+If adding to an existing project:
+
+```bash
+# Copy the skills directory to your project
+mkdir -p /path/to/your/project/.github/skills
+cp -r phonepe-edc-integration-skills /path/to/your/project/.github/skills/
+
+# Navigate to your project
+cd /path/to/your/project
+
+# Start GitHub Copilot CLI
+copilot
+```
+
+#### Step 2: Verify the Skill Is Detected
 
 ```bash
 /skills list
@@ -107,7 +126,7 @@ Verify the skill is detected:
 
 ---
 
-## 📌 Quick Reference
+## Quick Reference
 
 | Item | Value |
 |------|-------|
@@ -119,7 +138,7 @@ Verify the skill is detected:
 
 ---
 
-## 🔁 Supported Workflows
+## Supported Workflows
 
 | Workflow | Purpose | Key Parameters |
 |----------|---------|----------------|
@@ -130,7 +149,7 @@ Verify the skill is detected:
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ### 1. Add to `AndroidManifest.xml`
 
@@ -164,7 +183,7 @@ context.startForegroundService(intent)
 
 ---
 
-## 💡 Usage Examples
+## Usage Examples
 
 Start Copilot CLI in your project directory:
 
@@ -203,7 +222,7 @@ I'm getting ERR_PENDING_REVERSAL_FAILED on my PhonePe EDC terminal. Help me fix 
 
 ---
 
-## ⚙️ Environment Configuration
+## Environment Configuration
 
 **Staging (Testing):**
 ```kotlin
@@ -215,25 +234,18 @@ const val PHONEPE_PACKAGE = "com.phonepe.edc.app.stage"
 const val PHONEPE_PACKAGE = "com.phonepe.edc.app"
 ```
 
-Switch via build variants so the correct package is targeted per environment:
-
-```kotlin
-buildTypes {
-    debug   { buildConfigField("String", "PHONEPE_PACKAGE", "\"com.phonepe.edc.app.stage\"") }
-    release { buildConfigField("String", "PHONEPE_PACKAGE", "\"com.phonepe.edc.app\"") }
-}
-```
+Switch via build variants so the correct package is targeted per environment.
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Skills Not Loading
 
 **Problem:** `/skills list` returns empty
 
 **Solutions:**
-1. Check file structure: `.github/skills/phonepe-offline-skill/SKILL.md` must exist
+1. Check file structure: `.github/skills/phonepe-edc-integration-skills/SKILL.md` must exist
 2. Verify `SKILL.md` frontmatter has a lowercase `name` field
 3. Run `/skills reload`
 4. Restart Copilot CLI
@@ -242,7 +254,7 @@ buildTypes {
 
 | Error | Solution |
 |-------|----------|
-| `ERR_PENDING_REVERSAL_FAILED` | PhonePe App → Settings → Clear Reversals |
+| `ERR_PENDING_REVERSAL_FAILED` | PhonePe App → Settings → Clear Reversals. This option is enabled only after 1 hour and 10 retries. |
 | `ERR_TXN_DECLINED` | Try another card |
 | `ERR_APP_NOT_INITIALIZED` | Run the `CONFIGURE` workflow first |
 | `APP_NOT_FOUND` | Install the PhonePe EDC app on the terminal |
@@ -254,15 +266,19 @@ Ensure the `<queries>` block is present in `AndroidManifest.xml` — package vis
 
 ---
 
-## 📚 Additional Resources
+## Additional Resources
+
+### Repository Documentation
 
 | Document | Description |
 |----------|-------------|
-| [EDC.md](phonepe-offline-skill/Offline%20Integrations/EDC.md) | Complete integration guide with copy-paste code |
-| [SKILL.md](phonepe-offline-skill/SKILL.md) | Quick reference for all workflows |
+| [EDC.md](phonepe-edc-integration-skills/Offline%20Integrations/EDC.md) | Complete integration guide with copy-paste code |
+| [SKILL.md](phonepe-edc-integration-skills/SKILL.md) | Quick reference for all workflows |
 | [CHANGELOG.md](CHANGELOG.md) | Version history and migration notes |
 
-- [PhonePe Official Documentation](https://developer.phonepe.com/)
+### External Links
+
+- [PhonePe Developer Documentation](https://developer.phonepe.com/)
 - [GitHub Copilot CLI Documentation](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/use-copilot-cli)
 - [Agent Skills Standard](https://github.com/agentskills/agentskills)
 
