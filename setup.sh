@@ -32,7 +32,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Repository URL
-REPO_URL="https://github.com/PhonePe/phonepe-offline-skills.git"
+REPO_URL="https://github.com/PhonePe/phonepe-edc-integration-skills.git"
 TEMP_CLONE_DIR=""
 IS_CLONED=false
 CLONED_REPO_DIR=""
@@ -94,9 +94,9 @@ check_copilot_cli() {
 detect_script_location() {
     SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-    if [ -d "$SCRIPT_DIR/phonepe-offline-skill" ]; then
+    if [ -d "$SCRIPT_DIR/phonepe-edc-integration-skills" ]; then
         print_info "Running from cloned repository"
-        SKILLS_SOURCE_DIR="$SCRIPT_DIR/phonepe-offline-skill"
+        SKILLS_SOURCE_DIR="$SCRIPT_DIR/phonepe-edc-integration-skills"
         CLONED_REPO_DIR="$SCRIPT_DIR"
         IS_CLONED=true
     else
@@ -133,7 +133,7 @@ clone_repository() {
 
     if git_clone_with_timeout; then
         print_success "Repository cloned successfully"
-        SKILLS_SOURCE_DIR="$TEMP_CLONE_DIR/phonepe-offline-skill"
+        SKILLS_SOURCE_DIR="$TEMP_CLONE_DIR/phonepe-edc-integration-skills"
 
         if [ ! -d "$SKILLS_SOURCE_DIR" ]; then
             print_error "Skills directory not found in cloned repository"
@@ -227,7 +227,7 @@ setup_new_project() {
         fi
     done
 
-    DEST_DIR="$PROJECT_DIR/.github/skills/phonepe-offline-skill"
+    DEST_DIR="$PROJECT_DIR/.github/skills/phonepe-edc-integration-skills"
     mkdir -p "$DEST_DIR"
     cp -r "$SKILLS_SOURCE_DIR/." "$DEST_DIR/"
     print_success "Skills installed at: $DEST_DIR"
@@ -256,7 +256,7 @@ setup_existing_project() {
         break
     done
 
-    DEST_DIR="$PROJECT_DIR/.github/skills/phonepe-offline-skill"
+    DEST_DIR="$PROJECT_DIR/.github/skills/phonepe-edc-integration-skills"
     mkdir -p "$DEST_DIR"
     cp -r "$SKILLS_SOURCE_DIR/." "$DEST_DIR/"
     print_success "Skills installed at: $DEST_DIR"
